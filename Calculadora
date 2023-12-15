@@ -1,0 +1,194 @@
+#include <stdio.h>
+#include <cmath>
+#include <vector>
+
+
+double calculadoraCaidaLibre() {
+    double tiempo, altura, velocidad_inicial, velocidad_final;
+
+    int opcion_calculo;
+    printf("\nSelecciona que deseas calcular en caida libre:\n");
+    printf("1. Altura de caida\n");
+    printf("2. Velocidad final\n");
+    printf("3. Tiempo de caida\n");
+    printf("Ingresa el numero de la opcion: ");
+    scanf("%d", &opcion_calculo);
+
+    switch (opcion_calculo) {
+        case 1:
+        	double dat_tierra, dat_marte, dat_jupiter, dat_saturno, dat_neptuno;
+            printf("Ingresa el tiempo de caida en segundos: ");
+            scanf("%lf", &tiempo);
+            printf("Ingresa la velocidad inicial (metros/segundos): ");
+            scanf("%lf", &velocidad_inicial);
+            
+			dat_tierra = (velocidad_inicial * tiempo) + (0.5 * 9.81 * tiempo * tiempo);
+			dat_marte = (velocidad_inicial * tiempo) + (0.5 * 3.71 * tiempo * tiempo);
+			dat_jupiter = (velocidad_inicial * tiempo) + (0.5 * 24.79 * tiempo * tiempo);
+			dat_saturno = (velocidad_inicial * tiempo) + (0.5 * 10.44 * tiempo * tiempo);
+			dat_neptuno = (velocidad_inicial * tiempo) + (0.5 * 11.15 * tiempo * tiempo);	
+			printf("\n--------------------------------------\n");
+            printf("Tierra: El objeto fue lanzado a una altura de %.2lf metros.\n", dat_tierra);
+            printf("Marte: El objeto fue lanzado a una altura de %.2lf metros.\n", dat_marte);
+            printf("Jupiter: El objeto fue lanzado a una altura de %.2lf metros.\n", dat_jupiter);
+            printf("Saturno: El objeto fue lanzado a una altura de %.2lf metros.\n", dat_saturno);
+            printf("Neptuno: El objeto fue lanzado a una altura de %.2lf metros.\n", dat_neptuno);
+            break;
+        case 2:
+            printf("Ingresa el tiempo de caida en segundos: ");
+            scanf("%lf", &tiempo);
+             printf("Ingresa la velocidad inicial (metros/segundos): ");
+            scanf("%lf", &velocidad_inicial);
+            
+            dat_tierra = velocidad_inicial + (9.81 * tiempo);
+       		dat_marte = velocidad_inicial + (3.71 * tiempo);
+			dat_jupiter = velocidad_inicial + (24.79 * tiempo);
+			dat_saturno = velocidad_inicial + (10.44 * tiempo);
+			dat_neptuno = velocidad_inicial + (11.15 * tiempo);	
+			printf("\n--------------------------------------\n");
+            printf("Tierra: La velocidad final del objeto fue de %.2lf m/s.\n", dat_tierra);
+            printf("Marte: La velocidad final del objeto fue de %.2lf m/s.\n", dat_marte);
+            printf("Jupiter: La velocidad final del objeto fue de %.2lf m/s.\n", dat_jupiter);
+            printf("Saturno: La velocidad final del objeto fue de %.2lf m/s.\n", dat_saturno);
+            printf("Neptuno: La velocidad final del objeto fue de %.2lf m/s.\n", dat_neptuno);
+            break;
+        case 3:
+            printf("Ingresa la velocidad inicial en m/s: ");
+            scanf("%lf", &velocidad_inicial);
+            printf("Ingresa la velocidad final en m/s: ");
+            scanf("%lf", &velocidad_final);
+
+		    dat_tierra = (velocidad_final - velocidad_inicial ) / 9.81;
+       		dat_marte = (velocidad_final - velocidad_inicial ) / 3.71;
+			dat_jupiter = (velocidad_final - velocidad_inicial ) / 24.79;
+			dat_saturno = (velocidad_final - velocidad_inicial ) / 10.44;
+			dat_neptuno = (velocidad_final - velocidad_inicial ) / 11.15;	
+			printf("\n--------------------------------------\n");
+            printf("Tierra: El tiempo de caida del objeto es %.2lf segundos.\n", dat_tierra);
+            printf("Marte: El tiempo de caida del objeto es %.2lf segundos.\n", dat_marte);
+            printf("Jupiter: El tiempo de caida del objeto es %.2lf segundos.\n", dat_jupiter);
+            printf("Saturno: El tiempo de caida del objeto es %.2lf segundos.\n", dat_saturno);
+            printf("Neptuno: El tiempo de caida del objeto es %.2lf segundos.\n", dat_neptuno);
+            break;
+        default:
+            printf("Opcion no valida.\n");
+            return -1;
+    }
+
+    return 0;
+}
+
+double calculadoraMovimientoParabolico(double angulo, double gravedad) {
+    double velocidad_inicial_y, tiempo, velocidad_final_y, distancia_x, altura_maxima;
+
+    int opcion_calculo;
+    printf("\nSelecciona que deseas calcular en movimiento parabolico:\n");
+    printf("1. Velocidad final en y (vfy)\n");
+    printf("2. Tiempo de vuelo\n");
+    printf("3. Distancia recorrida en el eje x\n");
+    printf("4. Altura maxima alcanzada\n");
+    printf("Ingresa el numero de la opcion: ");
+    scanf("%d", &opcion_calculo);
+    double sin_theta = sin(angulo * acos(-1.0) / 180.0);
+    double cos_theta = cos(angulo * acos(-1.0) / 180.0);
+    double tan_theta = tan(angulo * acos(-1.0) / 180.0);
+	printf("\n--------------------------------------\n");
+    printf("Angulo: %.2lf grados sexagesimales\n", angulo);
+    printf("Seno: %.4lf\n", sin_theta);
+    printf("Coseno: %.4lf\n", cos_theta);
+    printf("Tangente: %.4lf\n", tan_theta);
+	printf("--------------------------------------\n");
+
+    switch (opcion_calculo) {
+        case 1:
+            printf("Ingresa la velocidad inicial en y en m/s: ");
+            scanf("%lf", &velocidad_inicial_y);
+            tiempo = (2 * velocidad_inicial_y * sin_theta) / gravedad;
+            velocidad_final_y = velocidad_inicial_y - gravedad * tiempo;
+            printf("\n--------------------------------------\n");
+            printf("La velocidad final en y (vfy) del objeto es %.2lf m/s.\n", fabs(velocidad_final_y));
+            break;
+        case 2:
+            printf("Ingresa la velocidad de lanzamiento en m/s: ");
+            scanf("%lf", &velocidad_inicial_y);
+            tiempo = (2 * velocidad_inicial_y * sin_theta) / gravedad;
+            printf("\n--------------------------------------\n");
+			printf("El tiempo de vuelo del objeto es %.2lf segundos.\n", fabs(tiempo));
+            break;
+        case 3:
+            printf("Ingresa la velocidad de lanzamiento en m/s: ");
+            scanf("%lf", &velocidad_inicial_y);
+            distancia_x = (2 * velocidad_inicial_y * velocidad_inicial_y * sin_theta * cos_theta) / gravedad;
+            printf("\n--------------------------------------\n");
+			printf("La distancia recorrida en el eje x es %.2lf metros.\n", distancia_x);
+            break;
+		case 4:
+ 	        printf("Ingresa la velocidad de lanzamiento en m/s: ");
+            scanf("%lf", &velocidad_inicial_y);
+            altura_maxima = (velocidad_inicial_y * velocidad_inicial_y*sin_theta*sin_theta) / (2 * gravedad);
+            printf("\n--------------------------------------\n");
+			printf("La altura maxima alcanzada por el objeto es %.2lf metros.\n", altura_maxima);
+            break;
+        default:
+            printf("Opcion no valida.\n");
+            return -1;
+    }
+
+    return 0;
+}
+
+int main() {
+    int opcion_calculadora;
+    printf("****  Calculadora para la Caida Libre y Movimiento Parabolico en Diferentes Planetas  ****\n");
+    printf("\nSelecciona la calculadora:\n");
+    printf("1. Caida Libre\n");
+    printf("2. Movimiento Parabolico\n");
+    printf("Ingresa el numero de la calculadora: ");
+    scanf("%d", &opcion_calculadora);
+
+    switch (opcion_calculadora) {
+        case 1:
+            calculadoraCaidaLibre();
+            break;
+        case 2:
+            double gravedad, angulo;
+            int opcion_planeta_mov_parabolico;
+            printf("\nSelecciona un planeta para obtener la gravedad:\n");
+            printf("1. Tierra\n");
+            printf("2. Marte\n");
+            printf("3. Jupiter\n");
+            printf("4. Saturno\n");
+            printf("5. Neptuno\n");
+            printf("Ingresa el numero del planeta: ");
+            scanf("%d", &opcion_planeta_mov_parabolico);
+
+            switch (opcion_planeta_mov_parabolico) {
+                case 1:	
+                    gravedad = 9.81; // Gravedad en la Tierra en m/s^2
+                    break;
+                case 2:
+                    gravedad = 3.71; // Gravedad en Marte en m/s^2
+                    break;
+                case 3:
+                    gravedad = 24.79; // Gravedad en Jupiter en m/s^2
+                    break;
+                case 4:
+                    gravedad = 10.44; // Gravedad en Saturno en m/s^2
+                    break;
+                case 5:
+                    gravedad = 11.15; // Gravedad en Neptuno en m/s^2
+                    break;
+                default:
+                    printf("Opcion no valida.\n");
+                    return 1;
+            }
+            printf("Ingresa el valor del angulo de lanzamiento en grados sexagesimales: ");
+            scanf("%lf", &angulo);
+            calculadoraMovimientoParabolico(angulo, gravedad);
+            break;
+        default:
+            printf("Opcion no valida.\n");
+            return 1;
+    }
+    return 0;
+}
